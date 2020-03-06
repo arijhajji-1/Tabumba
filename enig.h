@@ -1,7 +1,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
 #include <SDL/SDL_image.h>
-
+#include "SDL/SDL_ttf.h"
 typedef struct 
 {
  SDL_Surface * img;
@@ -10,6 +10,8 @@ typedef struct
 
 void init_enigme(enigme * e) ;
 void  generate_afficher (SDL_Surface * screen  , char image [],enigme *e,int *alea) ;
- int solution_e (char image []) ;
+int solution_e (char image []) ;
 int resolution (int * running,int *run);
-void afficher_resultat (SDL_Surface * screen,int s,int r,enigme *en) ;
+void afficher_resultat (SDL_Surface * screen,int s,int r,enigme *en) ; 
+void time(TTF_Font *timer); 
+
