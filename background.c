@@ -11,8 +11,8 @@ SDL_Surface * Init_imagedefond( SDL_Surface *imagedefond ,SDL_Rect *image ,  int
 	       imagedefond =  IMG_Load("map.png"); 
 
 	      if  ( imagedefond ==  NULL )  { 
-         printf ( "Can not load image of tux: %s \n " , SDL_GetError ()); 
-         exit ( 1 ); 
+         printf ( "Can not load image : %s \n " , SDL_GetError ()); 
+         
      } 
      else 
      {
