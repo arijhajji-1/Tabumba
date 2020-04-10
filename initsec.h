@@ -13,5 +13,7 @@ typedef struct Enemy
 }Enemy; 
 void inisialiser_character (Enemy *t, int x ,int y);
 void afficher_character (Enemy *t,SDL_Surface *screen,SDL_Rect pos);
-void animation (Enemy *t);
+Enemy AnimateEnemy(Enemy Ennemie, int stat);
+Enemy MoveEnemy(Enemy Ennemie, SDL_Rect personnage, int *stat, int mouvment);
+Enemy diedennemie(Enemy Ennemie,int coe);
 
