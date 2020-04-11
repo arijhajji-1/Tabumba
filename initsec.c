@@ -4,36 +4,33 @@
 #include <SDL/SDL_image.h>
 #include "initsec.h"
 
-void inisialiser_character (character *t, int x, int y)
+void inisialiser_character (Enemy *t, int x, int y)
 {
 
-	       t->image =  IMG_Load("background2.jpg"); 
-	      if  ( t->image  ==  NULL )  { 
+	       t->imageActuel =  IMG_Load("sylvan.png"); 
+	      if  ( t->imageActuel  ==  NULL )  { 
          printf ( "Can not load image of tux: %s \n " , SDL_GetError ()); 
          exit ( 1 ); 
      } 
      else 
      {
  
-     t->positionAbsolute.x = x; 
-     t->positionAbsolute.y = y;
-     t->positionAbsolute.h = t->image->h ;
-     t->positionAbsolute.w = t->image->w ;
-t->positionAnimation.x = x; 
-     t->positionAnimation.y = y;
-     t->positionAnimation.h = t->image->h ;
-     t->positionAnimation.w = t->image->w ;
+     t->position.x = x; 
+     t->position.y = y;
+     t->position.h =200 ;
+     t->position.w = 80 ;
+
 }
 
 
-t->health=0;
+t->frame=0;
 t->direction=0;
-t->moving=0;
+t->died=0;
 
 
 }
 
-void afficher_character (character *t,SDL_Surface *screen,SDL_Rect pos)
+void afficher_character (Enemy *t,SDL_Surface *screen,SDL_Rect pos)
 	{
-		SDL_BlitSurface(t->character,NULL,screen,&pos);
+		SDL_BlitSurface(t->Enemy,NULL,screen,&pos);
 	}
