@@ -6,7 +6,7 @@
 #include "SDL/SDL_ttf.h"
 
 #include "collision.h"
-#include "perso.h"
+#include "pp.h"
 
 SDL_Color GetPixel(SDL_Surface *pSurface,int x,int y)
 {
