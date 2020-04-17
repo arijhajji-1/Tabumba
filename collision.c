@@ -21,7 +21,7 @@ memcpy(&col ,pPosition ,pSurface->format->BytesPerPixel);
 SDL_GetRGB(col,pSurface->format, &color.r, &color.g, &color.b);
 return (color);
 }
-int Collision(SDL_Surface *map , personne perso, SDL_Rect position )
+int Collision(SDL_Surface *map , personnageP perso, SDL_Rect position )
 {
 int X,Y,W,H;
 SDL_Rect pos[8];
