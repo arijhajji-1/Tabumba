@@ -19,6 +19,6 @@ void afficher_background (SDL_Surface *screen,background *b);
 void scrolling_right (background *b,personnageP *p,SDL_Surface *screen);
 void scrolling_left (background *b,personnageP *p,SDL_Surface *screen);
 
-
+void free_memory (background *b );
 
   #endif // DS_H_INCLUDED
