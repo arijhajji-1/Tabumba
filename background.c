@@ -48,3 +48,12 @@ void scrolling_left (background *b,personngeP *p,SDL_Surface *screen)
 
 	}
 }
+void free_memory (background *b )
+{
+ SDL_FreeSurface (b->background) ;
+ SDL_FreeSurface (b->bg) ;
+
+
+ SDL_Quit () ;
+
+}
