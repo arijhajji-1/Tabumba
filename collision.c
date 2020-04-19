@@ -51,7 +51,7 @@ int i;
 {for (i=1;i<8;i++)
 {
     col=GetPixel(screen,perso.position[i].x,perso.position[i].y);
-if ((col.r==0)&&(col.b==0)&&(col.g==0))
+if ((col.r==255)&&(col.b==255)&&(col.g==255))
 
   return 1; 
 else
