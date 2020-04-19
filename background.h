@@ -1,6 +1,24 @@
+#ifndef background_H_INCLUDED
+#define background_H_INCLUDED
+
+
 #include "pp.h"
 
+typedef struct  background
+{
+  SDL_Surface *bg;
+	    SDL_Surface *background;
+	    SDL_Rect camera;
+	    int x_relative;
+	    int y_relative;
+      SDL_Rect pos;
+}background;
 
-SDL_Surface* Init_imagedefond( SDL_Surface *imagedefond ,SDL_Rect *positionFond ,  int x , int y) ;
-void Show_imagedefond (SDL_Surface *imagedefond , SDL_Surface *screen ,  SDL_Rect positionFond  ) ;
-void scrolling_map (SDL_Rect *positionFond,SDL_Rect *positionper,SDL_Surface *imageDeFond ,SDL_Surface *pers,SDL_Surface *screen);
+void initialiser_backround (background *b);
+void afficher_background (SDL_Surface *screen,background *b);
+void scrolling_right (background *b,personnageP *p,SDL_Surface *screen);
+void scrolling_left (background *b,personnageP *p,SDL_Surface *screen);
+
+
+
+  #endif // DS_H_INCLUDED
