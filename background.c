@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include "background.h"
 
 
@@ -27,7 +31,7 @@ SDL_BlitSurface(b->background,&b->camera,screen,NULL);
 
 }
 
-void scrolling_right (background *b,personnageP *p,SDL_Surface *screen)
+/*void scrolling_right (background *b,personnageP *p,SDL_Surface *screen)
 {
 	if (b->camera.x<10000-1010)
 	{
@@ -38,7 +42,7 @@ void scrolling_right (background *b,personnageP *p,SDL_Surface *screen)
 	}
 }
 
-void scrolling_left (background *b,personngeP *p,SDL_Surface *screen)
+void scrolling_left (background *b,personnageP *p,SDL_Surface *screen)
 {
 	if (b->camera.x>0)
 	{
@@ -47,7 +51,7 @@ void scrolling_left (background *b,personngeP *p,SDL_Surface *screen)
     p->position.x-=p->xvelocity;
 
 	}
-}
+}*/
 void free_memory (background *b )
 {
  SDL_FreeSurface (b->background) ;

@@ -1,8 +1,9 @@
 #ifndef background_H_INCLUDED
 #define background_H_INCLUDED
+#define PP_H_INCLUDED
 
 
-#include "pp.h"
+#include "pp1.h"
 
 typedef struct  background
 {
@@ -16,8 +17,8 @@ typedef struct  background
 
 void initialiser_backround (background *b);
 void afficher_background (SDL_Surface *screen,background *b);
-void scrolling_right (background *b,personnageP *p,SDL_Surface *screen);
-void scrolling_left (background *b,personnageP *p,SDL_Surface *screen);
+//void scrolling_right (background *b,personnageP *p,SDL_Surface *screen);
+//void scrolling_left (background *b,personnageP *p,SDL_Surface *screen);
 
 void free_memory (background *b );
 
