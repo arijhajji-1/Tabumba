@@ -1,18 +1,30 @@
 #ifndef FCT_H_INCLUDED
 #define FCT_H_INCLUDED
-
+/**
+*
+@struct joueur
+@brief structure du joueur x
+*/
 typedef struct 
 {
 int nb_de_fois;
 SDL_Surface *image; 
 }joueur;
-
+/**
+*
+@struct ordinateur
+@brief structure d'ordinateur
+*/
 typedef struct 
 {
 int nb_de_fois;
 SDL_Surface *image;
 }ordinateur;
-
+/**
+*
+@struct ctableau
+@brief structure du tableau
+*/
 typedef struct 
 {
 	SDL_Rect pos;

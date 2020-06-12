@@ -1,21 +1,28 @@
+/** 
+* 
+@author Fourat Halaoua
+@brief mini_jeu XO avec AI;
+@date May 24 2019
+@version 1.0
+@file jeuAI2.c
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-#include "fct.h"
+#include "fctAI2.h"
 
 int main()
 {
 	//declaration 
 SDL_Surface *screen;
 SDL_Surface *background;
-SDL_Surface *ximage;
 SDL_Rect posbackground;
-SDL_Rect xpos;
+SDL_Surface *win,*lose;
+SDL_Rect poswin,poslose;
 joueur xplayer;
 ordinateur oplayer;
-//SDL_Rect xpos;
 ctableau Tab[3][3];
 char pause;
 int i,j,compteur,action;
@@ -34,13 +41,10 @@ for(j=0;j<3;j++)
 Tab[i][j]=initialisation_tab(i,j);
 }
 }
-//x=SDL_LoadBMP("x.bmp");
-//xpos.x=201;
-//xpos.y=1;
+
 //initialisation du xplayer
 xplayer=initialisation_xjoueur();
-//SDL_BlitSurface(x,NULL,screen,&xpos);
-//SDL_Flip(screen);
+
 //initialisation du oplayer
 oplayer=initialisation_ojoueur();
 
@@ -48,18 +52,28 @@ compteur=xplayer.nb_de_fois;
 //tour de xplayer
 do
 {xplayer=joueurX(xplayer,Tab,screen);
-	SDL_Delay(1500);
+	SDL_Delay(1000);
+	//tour de oplayer 
 	if(fin_jeu(xplayer,oplayer,Tab,screen)==0)
  {oplayer=ordinateurO(oplayer,Tab,screen);
- 	SDL_Delay(1000);}
+ 	SDL_Delay(500);}
  }while(fin_jeu(xplayer,oplayer,Tab,screen)==0);
+// si 
 if(fin_jeu(xplayer,oplayer,Tab,screen)==1)
 {
-	
+win=SDL_LoadBMP("you win.bmp");
+poswin.x=150;
+poswin.y=150;
+SDL_BlitSurface(win,NULL,screen,&poswin);
+SDL_Flip(screen);	
 }
 else if(fin_jeu(xplayer,oplayer,Tab,screen)==2)
 {
-	
+lose=SDL_LoadBMP("you lose.bmp");
+poslose.x=150;
+poslose.y=150;
+SDL_BlitSurface(lose,NULL,screen,&poslose);
+SDL_Flip(screen);
 }else if(fin_jeu(xplayer,oplayer,Tab,screen)==3)
 {
   main();

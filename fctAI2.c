@@ -1,22 +1,37 @@
+/** 
+* 
+@file fctAI2.c
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-#include "fct.h"
-
+#include "fctAI2.h"
+/**
+*
+@brief pour afficher le background
+@param screen est ecran de jeu
+@return rien
+*/
 void afficher_background (SDL_Surface *screen)
 {
 	SDL_Rect posbackground;
 	SDL_Surface *background;
-background= IMG_Load ("background.png");
+background= SDL_LoadBMP ("background.bmp");
 posbackground.x=0;
 posbackground.y=0;
 SDL_BlitSurface(background,NULL,screen,&posbackground);
 SDL_Flip(screen);
 SDL_FreeSurface(screen);  
 }
-
+/**
+*
+@brief pour initialiser le tableau
+@param j nombre de colone
+@param i nombre de ligne
+@return la case 
+*/
 ctableau initialisation_tab(int i,int j)
 {
 	
@@ -26,23 +41,40 @@ Tab.pos.x=200*j;
 Tab.pos.y=200*i;
 return (Tab);
 }
-
+/**
+*
+@brief pour initialiser le joueur x
+@param rien
+@return initialisation joueur x 
+*/
 joueur initialisation_xjoueur()
 {
 	joueur player;
-	player.image=IMG_Load("x.png");
+	player.image=SDL_LoadBMP("x.bmp");
 	player.nb_de_fois=5;
 	return player;
 }
-
+/**
+*
+@brief pour initialiser le joueur o
+@param rien
+@return initialisation joueur o 
+*/
 ordinateur initialisation_ojoueur()
 {
 	ordinateur player;
-	player.image=IMG_Load("o.png");
+	player.image=SDL_LoadBMP("o.bmp");
 	player.nb_de_fois=4;
 	return player;
 }
-
+/**
+*
+@brief pour faire le tour du joueur x
+@param player le joueur x
+@param Tab[3][3] le tableau 
+@param  screen est l'ecran du jeu
+@return  joueur x 
+*/
 joueur joueurX(joueur player,ctableau Tab[3][3],SDL_Surface *screen)
 {
 	SDL_Event event;
@@ -86,6 +118,14 @@ joueur joueurX(joueur player,ctableau Tab[3][3],SDL_Surface *screen)
   }
   return player;
 }
+/**
+*
+@brief pour faire le tour du joueur 0(ordinateur)
+@param player le joueur 0
+@param Tab[3][3] le tableau 
+@param  screen est l'ecran du jeu
+@return initialisation joueur o 
+*/
 ordinateur ordinateurO(ordinateur player,ctableau Tab[3][3],SDL_Surface *screen)
 {
 	int ligne,colone;
@@ -113,7 +153,15 @@ ordinateur ordinateurO(ordinateur player,ctableau Tab[3][3],SDL_Surface *screen)
 }
 
 
-
+/**
+*
+@brief pour arreter le jeu 
+@param player le joueur x
+@param player le joueur 0
+@param Tab[3][3] le tableau 
+@param  screen est l'ecran du jeu
+@return entier 0=le jeu n'a pas termine 1=joueurx a gagne 2=joueuro a gagne 3= rejouer
+*/
 int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *screen)
 { SDL_Surface *barre1,*barre2,*barre3,*barre4;
 	SDL_Rect posbarre1,posbarre2,posbarre3,posbarre4;
@@ -123,38 +171,42 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      {
        if(Tab[0][0].cas==1)
          {
-           barre1=IMG_Load("2.png");
+           barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=100;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][0].cas==2)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=100;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
      }
      else if (((Tab[1][0].cas)!=0)&&((Tab[1][1].cas)!=0)&&((Tab[1][2].cas)!=0)&&((Tab[1][0].cas)==(Tab[1][1].cas))&&((Tab[1][1].cas)==(Tab[1][2].cas)))
      {
        if(Tab[1][0].cas==1)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=300;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[1][0].cas==2)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=300;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -162,19 +214,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[2][0].cas)!=0)&&((Tab[2][1].cas)!=0)&&((Tab[2][2].cas)!=0)&&((Tab[2][0].cas)==(Tab[2][1].cas))&&((Tab[2][1].cas)==(Tab[2][2].cas)))
      {
        if(Tab[2][0].cas==1)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=500;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[2][0].cas==2)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=500;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -182,19 +236,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][0].cas)!=0)&&((Tab[1][0].cas)!=0)&&((Tab[2][0].cas)!=0)&&((Tab[0][0].cas)==(Tab[1][0].cas))&&((Tab[1][0].cas)==(Tab[2][0].cas)))
      {
        if(Tab[0][0].cas==1)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=100;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][0].cas==2)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=100;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	         	SDL_Flip(screen);
+         	         	SDL_Delay(500);
          	return 2;
          }
 
@@ -202,19 +258,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][1].cas)!=0)&&((Tab[1][1].cas)!=0)&&((Tab[2][1].cas)!=0)&&((Tab[0][1].cas)==(Tab[1][1].cas))&&((Tab[1][1].cas)==(Tab[2][1].cas)))
      {
          if(Tab[0][1].cas==1)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=300;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][1].cas==2)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=300;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -222,19 +280,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][2].cas)!=0)&&((Tab[1][2].cas)!=0)&&((Tab[2][2].cas)!=0)&&((Tab[0][2].cas)==(Tab[1][2].cas))&&((Tab[1][2].cas)==(Tab[2][2].cas)))
      {
           if(Tab[0][2].cas==1)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=500;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][2].cas==2)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=500;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -242,19 +302,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][0].cas)!=0)&&((Tab[1][1].cas)!=0)&&((Tab[2][2].cas)!=0)&&((Tab[0][0].cas)==(Tab[1][1].cas))&&((Tab[1][1].cas)==(Tab[2][2].cas)))
      {
        if(Tab[0][0].cas==1)
-         {barre1=IMG_Load("3.png");
+         {barre1=SDL_LoadBMP("3.bmp");
          	posbarre1.x=0;
          	posbarre1.y=0;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][0].cas==2)
-         {barre1=IMG_Load("3.png");
+         {barre1=SDL_LoadBMP("3.bmp");
          	posbarre1.x=0;
          	posbarre1.y=0;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -262,19 +324,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][2].cas)!=0)&&((Tab[1][1].cas)!=0)&&((Tab[2][0].cas)!=0)&&((Tab[0][2].cas)==(Tab[1][1].cas))&&((Tab[1][1].cas)==(Tab[2][0].cas)))
      {
         if(Tab[0][2].cas==1)
-         {barre1=IMG_Load("4.png");
+         {barre1=SDL_LoadBMP("4.bmp");
          	posbarre1.x=0;
          	posbarre1.y=0;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][2].cas==2)
-         {barre1=IMG_Load("4.png");
+         {barre1=SDL_LoadBMP("4.bmp");
          	posbarre1.x=0;
          	posbarre1.y=0;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -284,38 +348,42 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
       if(((Tab[0][0].cas)!=0)&&((Tab[0][1].cas)!=0)&&((Tab[0][2].cas)!=0)&&((Tab[0][0].cas)==(Tab[0][1].cas))&&((Tab[0][1].cas)==(Tab[0][2].cas)))
      {
        if(Tab[0][0].cas==1)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=100;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][0].cas==2)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=100;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
      }
      else if (((Tab[1][0].cas)!=0)&&((Tab[1][1].cas)!=0)&&((Tab[1][2].cas)!=0)&&((Tab[1][0].cas)==(Tab[1][1].cas))&&((Tab[1][1].cas)==(Tab[1][2].cas)))
      {
        if(Tab[1][0].cas==1)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=300;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[1][0].cas==2)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=300;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -323,18 +391,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[2][0].cas)!=0)&&((Tab[2][1].cas)!=0)&&((Tab[2][2].cas)!=0)&&((Tab[2][0].cas)==(Tab[2][1].cas))&&((Tab[2][1].cas)==(Tab[2][2].cas)))
      {
        if(Tab[2][0].cas==1)
-         {barre1=IMG_Load("2.png");
-         	posbarre1.x=20;
-         	posbarre1.y=500;
-         	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
-         	SDL_Flip(screen);         	return 1;
-         }
-         else if(Tab[2][0].cas==2)
-         {barre1=IMG_Load("2.png");
+         {barre1=SDL_LoadBMP("2.bmp");
          	posbarre1.x=20;
          	posbarre1.y=500;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
+         	         	return 1;
+         }
+         else if(Tab[2][0].cas==2)
+         {barre1=SDL_LoadBMP("2.bmp");
+         	posbarre1.x=20;
+         	posbarre1.y=500;
+         	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
+         	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -342,19 +413,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][0].cas)!=0)&&((Tab[1][0].cas)!=0)&&((Tab[2][0].cas)!=0)&&((Tab[0][0].cas)==(Tab[1][0].cas))&&((Tab[1][0].cas)==(Tab[2][0].cas)))
      {
        if(Tab[0][0].cas==1)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=100;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][0].cas==2)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=100;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -362,19 +435,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][1].cas)!=0)&&((Tab[1][1].cas)!=0)&&((Tab[2][1].cas)!=0)&&((Tab[0][1].cas)==(Tab[1][1].cas))&&((Tab[1][1].cas)==(Tab[2][1].cas)))
      {
          if(Tab[0][1].cas==1)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=300;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][1].cas==2)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=300;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -382,19 +457,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][2].cas)!=0)&&((Tab[1][2].cas)!=0)&&((Tab[2][2].cas)!=0)&&((Tab[0][2].cas)==(Tab[1][2].cas))&&((Tab[1][2].cas)==(Tab[2][2].cas)))
      {
           if(Tab[0][2].cas==1)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=500;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][2].cas==2)
-         {barre1=IMG_Load("1.png");
+         {barre1=SDL_LoadBMP("1.bmp");
          	posbarre1.x=500;
          	posbarre1.y=20;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -402,19 +479,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][0].cas)!=0)&&((Tab[1][1].cas)!=0)&&((Tab[2][2].cas)!=0)&&((Tab[0][0].cas)==(Tab[1][1].cas))&&((Tab[1][1].cas)==(Tab[2][2].cas)))
      {
        if(Tab[0][0].cas==1)
-         {barre1=IMG_Load("3.png");
+         {barre1=SDL_LoadBMP("3.bmp");
          	posbarre1.x=0;
          	posbarre1.y=0;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][0].cas==2)
-         {barre1=IMG_Load("3.png");
+         {barre1=SDL_LoadBMP("3.bmp");
          	posbarre1.x=0;
          	posbarre1.y=0;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
@@ -422,19 +501,21 @@ int fin_jeu(joueur playerx,ordinateur playero,ctableau Tab[3][3],SDL_Surface *sc
      else if (((Tab[0][2].cas)!=0)&&((Tab[1][1].cas)!=0)&&((Tab[2][0].cas)!=0)&&((Tab[0][2].cas)==(Tab[1][1].cas))&&((Tab[1][1].cas)==(Tab[2][0].cas)))
      {
         if(Tab[0][2].cas==1)
-         {barre1=IMG_Load("4.png");
+         {barre1=SDL_LoadBMP("4.bmp");
          	posbarre1.x=0;
          	posbarre1.y=0;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 1;
          }
          else if(Tab[0][2].cas==2)
-         {barre1=IMG_Load("4.png");
+         {barre1=SDL_LoadBMP("4.bmp");
          	posbarre1.x=0;
          	posbarre1.y=0;
          	SDL_BlitSurface(barre1,NULL,screen,&posbarre1);
          	SDL_Flip(screen);
+         	SDL_Delay(500);
          	return 2;
          }
 
