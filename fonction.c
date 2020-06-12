@@ -1,3 +1,11 @@
+/** 
+* 
+@author Fourat Halaoua
+@brief initialisation animation affichage du personnage principal;
+@date May 3 2019
+@version 1.0
+@file fonction.c
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL/SDL.h>
@@ -5,10 +13,13 @@
 #include "pp1.h"
 #include "background.h" 
 #include <SDL/SDL_ttf.h>
-#include <math.h>
-#include <stdbool.h> 
-#include "enig.h"
-#include "sauvegarde.h"
+/**
+*
+@brief animation du marche 
+@param action qu'il va faire le personnage principal 
+@param luan est le personnage principal
+@return rien
+*/
 void animate_walk(personnageP *luan,int action)
 {
 switch (action)
@@ -30,7 +41,15 @@ SDL_Delay(30);
 	break;
 }
 }
-
+/**
+*
+@brief animation du personnage principal 
+@param action qu'il va faire le personnage principal 
+@param caractere est le personnage principal
+@param screen est  l'ecran du jeu
+@param backg est le background du jeu 
+@return rien
+*/
 void animation_perso(personnageP *caractere,int action,SDL_Surface *screen,background *backg)
 { 
 int i;
@@ -46,7 +65,6 @@ posimg.y=caractere->walk[0].y;
 posimg.h=caractere->walk[0].h;
 posimg.w=caractere->walk[0].w;
 	afficher_perso(screen,caractere,posimg,backg);
-  
 	caractere->position.x=caractere->position.x+10;
 }
 else if(caractere->direction==1)
@@ -57,7 +75,6 @@ posimg.y=caractere->walk[1].y;
 posimg.h=caractere->walk[1].h;
 posimg.w=caractere->walk[1].w;
 	afficher_perso(screen,caractere,posimg,backg);
-
 caractere->position.x=caractere->position.x-10;
 }
 break;
@@ -207,7 +224,15 @@ posimg.w=caractere->die[1].w;
 break;
 }//switch
 }//void
-
+/**
+*
+@brief pour afficher le personnage principal
+@param screen est l'ecran du jeu 
+@param luan est le personnage principal 
+@param posimg est la position du personnage principal
+@param backg est le background du jeu 
+@return rien
+*/
   void afficher_perso(SDL_Surface *screen,personnageP *luan,SDL_Rect posimg,background *backg)
 {
 	afficher_background(screen,backg);
@@ -218,9 +243,15 @@ SDL_BlitSurface(luan->personnage,&posimg,screen,&(luan->position));
                 SDL_FreeSurface(luan->personnage);
 
 }
-
+/**
+*
+@brief pour initialiser le personnage principal
+@param screen est l'ecran du jeu 
+@param level est le niveau du jeu 
+@return personnage principal 
+*/
       personnageP inisialiser_perso (int level,SDL_Surface *screen)
-{ 
+{
 personnageP luan;
 luan.persoVie.val=5;
 luan.persoScore.s=0;
@@ -280,14 +311,11 @@ luan.die[1].h=200;
 luan.die[1].w=100;
 
 luan.direction=0;
-
-
 luan.personnage=IMG_Load("assyl 1.png");
 if(level==1)
 {
 	luan.position.x=60;
 luan.position.y=540;
-
 }
 else if(level==2)
 {
@@ -313,13 +341,9 @@ SDL_Flip(screen);
 void delpacement (SDL_Event event,personnageP *luan,SDL_Surface *screen,background *backg)
 {int action;
 	int done=1;
- sauvegarde sauvegarde;
- //int running=1;
-int i;
-  while((SDL_WaitEvent(&event))&&(done==1))
-{  loadGame(luan);
-
-  switch(event.type)
+	
+while(SDL_WaitEvent(&event))
+{switch(event.type)
         {
             case SDL_QUIT:
                 done = 0;
@@ -327,52 +351,38 @@ int i;
 case SDL_KEYDOWN:
                 switch(event.key.keysym.sym)
                 {
-                  case SDLK_ESCAPE:
-done =update (&sauvegarde,screen,*luan,&done);
-break;
-                    case SDLK_UP:
-                
+                    case SDLK_UP: 
 action=2;
-scrolling_right(backg);
 animation_perso(luan,action,screen,backg);
-
                         break;
                     /*case SDLK_z: 
                         posHero.y--;
                         break;*/
-                    case SDLK_DOWN:
-                 
+                    case SDLK_DOWN: 
 action=3;
-scrolling_right(backg);
 animation_perso(luan,action,screen,backg);
                         break;
                     /*case SDLK_s: 
                         posHero.y++;
                         break;*/
                     case SDLK_RIGHT: 
-         
+                    
 luan->direction=0;
 action=1;
-scrolling_right(backg);
-animation_perso(luan,action,screen,backg); 
-
-
+animation_perso(luan,action,screen,backg);
 
                         break;
                     /*case SDLK_d: 
                         posHero.x++;
                         break;*/
-             
-                   case SDLK_LEFT: 
-               
+                    case SDLK_LEFT: 
 luan->direction=1;
 action=1;
-scrolling_left(backg);
 animation_perso(luan,action,screen,backg);
-
                         break;
-
-                    
+                    /*case SDLK_q: 
+                        posHero.x--;
+                        break;*/
                 }
                 break;
         case SDL_MOUSEBUTTONUP:
@@ -382,7 +392,6 @@ if( luan->position.x<event.button.x )
 while (luan->position.x<event.button.x)
              {action=1;
 luan->direction=0 ;
-scrolling_right(backg);
 animation_perso(luan,action,screen,backg);
  SDL_Flip(screen);
 SDL_Delay(1);
@@ -393,19 +402,18 @@ else if( luan->position.x>event.button.x )
 while (luan->position.x>event.button.x)
              {action=1;
 luan->direction=1 ;
-scrolling_left(backg);
 animation_perso(luan,action,screen,backg);
  SDL_Flip(screen);
 SDL_Delay(1);
          }}
 else if (event.button.button==SDL_BUTTON_LEFT)
-              {action=5;
-                scrolling_right(backg);
+              {
+
+                action=5;
 animation_perso(luan,action,screen,backg);
  }
 
  }     }
- freem(&sauvegarde);
    }
 
 void init_vie(vie *v,SDL_Surface *screen) 
@@ -477,161 +485,3 @@ void free_score(points*S)
    SDL_FreeSurface(S->score);
 }
 
-
-SDL_Color GetPixel(SDL_Surface *pSurface, int x, int y)
-{
-	SDL_Color color;
-	Uint32 col = 0;
-	char *pPosition = (char *)pSurface->pixels;
-	pPosition += (pSurface->pitch*y);
-	pPosition += (pSurface->format->BytesPerPixel*x);
-	memcpy(&col, pPosition, pSurface->format->BytesPerPixel);
-	SDL_GetRGB(col, pSurface->format, &color.r, &color.g, &color.b);
-	return (color);
-}
-int Collision(background *backg,personnageP *luan)
-{
-	SDL_Color couleur_obstacle ;
-	int i = 0;
-	int collision = 0;
-	SDL_Rect pos[8];
-
-	
-
-	pos[0].x = 60;
-	pos[0].y = 540;
-	pos[1].x = 60 + 100 / 3.9;
-	pos[1].y = 540;
-	pos[2].x = 60 + 100 / 2;
-	pos[2].y = 540;
-
-	pos[3].x = 60;
-	pos[3].y = 540 + 100 / 2;
-	pos[4].x = 60 + 200 / 2;
-	pos[4].y = 540 + 100/ 2;
-
-	pos[5].x = 60;
-	pos[5].y = 540 + 100;
-	pos[6].x = 60 + 200 / 3.9;
-	pos[6].y = 540 + 100;
-	pos[7].x = 60 + 200/ 2;
-	pos[7].y = 540 + 100;
-
-	for (i = 0; i < 8; i++)
-	{
-		couleur_obstacle = GetPixel(backg->bg, pos[i].x, pos[i].y);
-		if ((couleur_obstacle.r == 255) && (couleur_obstacle.g == 255 )&&( couleur_obstacle.b == 255))
-		
-return 1;
-else 
-return 0;
-}
-
-
-
-
-}
-
-
-int enigmee(SDL_Surface *screen) 
-{
- 
-
-	SDL_Surface *image1; 
-	SDL_Rect p ;
-	p.x=0 ;
-	p.y=0 ;
-	enigme  e;
-	FILE *f ;
-	int s,r,run =1,running=1,alea;
-	char image[30]="";
-	 SDL_Event event;
-        f=fopen("test.txt","a") ;
-	 
-	 //SDL_Init ( SDL_INIT_VIDEO ) ;
-
-	 //screen=SDL_SetVideoMode(1463,768,32,SDL_HWSURFACE  |  SDL_DOUBLEBUF | SDL_FULLSCREEN );
-
-
-	 init_enigme(&e);
-	
-	 if(e.img==NULL)
-	 {
-	 	fprintf(f,"%d\n",1800) ;
-
-	 }	
-    
-	
-	 	 
-	 
-	 while (run)
-	 {
-		 running=1,r=0 ;
-	   SDL_PollEvent(&event);
-        switch(event.type)
-        {
-            case SDL_QUIT:
-                run = 0;
-	 break ;
-	
-
-        }	
-        	fprintf(f,"%d\n",e.p.x) ;
-	         fprintf(f,"%d\n",e.p.y) ;
-         generate_afficher ( screen  , image ,&e,&alea) ;
-	        fprintf(f,"%s\n",image) ;
-
-      s=solution_e (image );
-			do{
-			r=resolution (&running,&run);
-			}while((r>3 || r<1) && running!=0) ;
-			fprintf(f,"run=%d\n",run) ;
-			fprintf(f,"s= %d\nr=%d\n",s,r) ;
-			
-      while(running){
-
-				afficher_resultat (screen,s,r,&e) ;
-			  SDL_WaitEvent(&event);
-        switch(event.type)
-        {
-					 case SDL_QUIT :
-            running =0 ;
-						run=0 ;
-					  break ;
-            case SDL_KEYDOWN :
-						    
-                  switch( event.key.keysym.sym )
-                {
-			             case  SDLK_ESCAPE: 
-			              running= 0 ;
-run=0 ;
-
-			              break ;
-case SDLK_SPACE:
-running=0;
-break;
-			  
-			   
-			          }
-						break ;
-        }
-				
-			
-
-			}
-			
-	
-	
-	
-   }
-	 fclose(f) ;
-      //SDL_FreeSurface(screen);
-      SDL_Quit();
-	return 0;
-
-
-
-
-
-
-}
